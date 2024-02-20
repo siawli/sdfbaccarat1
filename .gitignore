@@ -2,6 +2,7 @@
 
 classes
 
+users
 *.db
 
 *.csv
