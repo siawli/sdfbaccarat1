@@ -1,0 +1,8 @@
+./vscode
+
+classes
+
+*.db
+
+*.csv
+.vercel
