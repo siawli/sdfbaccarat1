@@ -3,7 +3,6 @@
 ```
 javac --source-path src -d classes src/sg/edu/nus/iss/baccarat/server/*
 javac --source-path src -d classes src/sg/edu/nus/iss/baccarat/client/*
-
 ```
 
 ### To Run Server/Client
@@ -11,7 +10,6 @@ javac --source-path src -d classes src/sg/edu/nus/iss/baccarat/client/*
 ```
 java -cp classes sg.edu.nus.iss.baccarat.server.ServerApp 12345 4
 java -cp classes sg.edu.nus.iss.baccarat.client.ClientApp localhost:12345
-
 ```
 
 ### To Compile Test
