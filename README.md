@@ -23,3 +23,9 @@ javac -cp lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:src -d classes src/test
 ```
 java -cp classes:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore test.AppTest
 ```
+
+### Vercel
+
+```
+https://sdfbaccarat1-pfewat1j0-isis-projects-33b17275.vercel.app
+```
