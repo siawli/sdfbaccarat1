@@ -48,64 +48,68 @@ public class ServerApp {
             OutputStream os = null;
             DataOutputStream dos = null;
 
-            while (true) {
+            try {
 
-                os = socket.getOutputStream();
-                dos = new DataOutputStream(os);
-                is = socket.getInputStream();
-                dis = new DataInputStream(is);
+                while (true) {
 
-                // Read data from client
-                String dataFromClient = dis.readUTF();
+                    os = socket.getOutputStream();
+                    dos = new DataOutputStream(os);
+                    is = socket.getInputStream();
+                    dis = new DataInputStream(is);
 
-                if (dataFromClient.equals("exit")) {
-                    System.out.println("Client exited, server exiting too");
-                    break;
-                } else {
-                    BaccaratEngine baccaratEngine = new BaccaratEngine(cardsDB);
+                    // Read data from client
+                    String dataFromClient = dis.readUTF();
 
-                    if (baccaratEngine.checkCards() == true) {
-                        String prefix = dataFromClient.split("\\|")[0];
-
-                        // LOGIN COMMAND
-                        if (prefix.equals("login")) {
-                            String user = baccaratEngine.login(dataFromClient);
-                            userDB = new File("users/" + user + ".db");
-                            dos.writeUTF("continue");
-                            dos.flush();
-                        }
-
-                        // BET COMMAND
-                        if (prefix.equals("bet")) {
-                            betAmount = baccaratEngine.bet(dataFromClient);
-                            dos.writeUTF("continue");
-                            dos.flush();
-                        }
-
-                        // DEAL COMMAND
-                        if (prefix.equals("deal")) {
-                            gameResultsSummary = baccaratEngine.deal(userDB, betAmount, dataFromClient);
-                            dos.writeUTF(gameResultsSummary);
-                            dos.flush();
-                        }
-
-                    } else {
-                        System.out.println("Insufficient cards, stopping game now...");
-
-                        dos.writeUTF("end game");
-                        dos.flush();
-                        cardsDB.delete();
+                    if (dataFromClient.equals("exit")) {
+                        System.out.println("Client exited, server exiting too");
                         break;
+                    } else {
+                        BaccaratEngine baccaratEngine = new BaccaratEngine(cardsDB);
+
+                        if (baccaratEngine.checkCards() == true) {
+                            String prefix = dataFromClient.split("\\|")[0];
+
+                            // LOGIN COMMAND
+                            if (prefix.equals("login")) {
+                                String user = baccaratEngine.login(dataFromClient);
+                                userDB = new File("users/" + user + ".db");
+                                dos.writeUTF("continue");
+                                dos.flush();
+                            }
+
+                            // BET COMMAND
+                            if (prefix.equals("bet")) {
+                                betAmount = baccaratEngine.bet(dataFromClient);
+                                dos.writeUTF("continue");
+                                dos.flush();
+                            }
+
+                            // DEAL COMMAND
+                            if (prefix.equals("deal")) {
+                                gameResultsSummary = baccaratEngine.deal(userDB, betAmount, dataFromClient);
+                                dos.writeUTF(gameResultsSummary);
+                                dos.flush();
+                            }
+
+                        } else {
+                            System.out.println("Insufficient cards, stopping game now...");
+
+                            dos.writeUTF("end game");
+                            dos.flush();
+                            cardsDB.delete();
+                            break;
+                        }
                     }
                 }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                // Close socket
+                dis.close();
+                dos.close();
+                socket.close();
+                server.close();
             }
-
-            // Close socket
-            dis.close();
-            dos.close();
-            socket.close();
-            server.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

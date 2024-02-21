@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
-import sg.edu.nus.iss.baccarat.server.BaccaratEngine;
+import sg.edu.nus.iss.baccarat.server.BaccaratEngine; //Even if test file is outside of src directory
 
 public class AppTest {
 

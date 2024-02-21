@@ -24,6 +24,14 @@ javac -cp lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:src -d classes src/test
 java -cp classes:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore test.AppTest
 ```
 
+### If In separate Test file (Compile and Run)
+
+```
+javac -cp lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar:src -d classes test/AppTest.java
+java -cp classes:lib/junit-4.13.2.jar:lib/hamcrest-core-1.3.jar org.junit.runner.JUnitCore test.AppTest
+
+```
+
 ### Vercel
 
 ```

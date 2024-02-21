@@ -146,7 +146,7 @@ public class BaccaratEngine {
             bankerValue = bankerSum;
         }
 
-        if (playerValue <= 5) {
+        if (playerValue <= 5 && (bankerValue != 8 || bankerValue != 9)) { // Take into account instant win
             int playerThirdCard = (int) Double.parseDouble(allCards.get(0));
             allCards.remove(0);
             if (playerThirdCard == 11 || playerThirdCard == 12 || playerThirdCard == 13) {
@@ -161,7 +161,7 @@ public class BaccaratEngine {
             }
         }
 
-        if (bankerValue <= 5) {
+        if (bankerValue <= 5 && (playerValue != 8 || playerValue != 9)) { // Take into account instant win
             int bankerThirdCard = (int) Double.parseDouble(allCards.get(0));
             allCards.remove(0);
             if (bankerThirdCard == 11 || bankerThirdCard == 12 || bankerThirdCard == 13) {
